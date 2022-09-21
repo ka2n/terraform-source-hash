@@ -1,0 +1,27 @@
+name: test
+
+on:
+  pull_request:
+  push:
+    branches:
+      - "main"
+  
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: actions/setup-go@v3
+        with:
+          go-version-file: "go.mod"
+          cache: true
+      - name: Go version
+        run: go version
+
+      - name: Lint
+        uses: golangci/golangci-lint-action@v3
+
+      - name: Test
+        run: go test -shuffle on ./...
