@@ -68,7 +68,7 @@ func (m ModuleInfo) Hash() string {
 	}), " ")
 
 	h := hasher()
-	io.WriteString(h, raw)
+	_, _ = io.WriteString(h, raw)
 	return hex.EncodeToString(h.Sum(nil))
 }
 
