@@ -31,10 +31,15 @@ func main() {
 		dir = "."
 	}
 
-	// collect all module dependencies
+	if !tfconfig.IsModuleDir(dir) {
+		fmt.Fprintf(os.Stderr, "error: %s is not a Terraform module directory\n", dir)
+		os.Exit(1)
+	}
+
 	m, err := calcModuleHash("root", dir)
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "error calculating module hash: %s\n", err)
+		os.Exit(1)
 	}
 
 	if *flagJSON {
@@ -83,7 +88,10 @@ func showJSON(module *ModuleInfo) {
 }
 
 func calcModuleHash(name string, dir string) (*ModuleInfo, error) {
-	m, _ := tfconfig.LoadModule(dir)
+	m, diag := tfconfig.LoadModule(dir)
+	if err := diag.Err(); err != nil {
+		return nil, err
+	}
 
 	// list files
 	fileHashes := make([]*FileInfo, 0)
