@@ -1,5 +1,7 @@
 # Changelog
 
+## [v0.0.4](https://github.com/ka2n/terraform-source-hash/compare/v0.0.3...v0.0.4) - 2023-05-18
+
 ## [v0.0.3](https://github.com/ka2n/terraform-source-hash/compare/v0.0.2...v0.0.3) - 2023-01-12
 - use(github): use Songmu/tagpr@v1 by @ka2n in https://github.com/ka2n/terraform-source-hash/pull/4
 
