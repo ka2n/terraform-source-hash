@@ -115,9 +115,24 @@ func calcModuleHash(name string, dir string) (*ModuleInfo, error) {
 
 	deps := make([]*ModuleInfo, 0)
 	for k, mc := range m.ModuleCalls {
-		h, err := calcModuleHash(k, filepath.Join(dir, mc.Source))
-		if err != nil {
-			return nil, err
+		// if module is local, calculate hash recursively
+		// otherwise, module name and version is enough
+		var h *ModuleInfo
+		if strings.HasPrefix(mc.Source, ".") {
+			h, err = calcModuleHash(k, filepath.Join(dir, mc.Source))
+			if err != nil {
+				return nil, err
+			}
+		} else {
+			h = &ModuleInfo{
+				Name: mc.Source,
+				Files: []*FileInfo{
+					{
+						Name: "::remote::",
+						Hash: mc.Source + "@" + mc.Version,
+					},
+				},
+			}
 		}
 		deps = append(deps, h)
 	}
