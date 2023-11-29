@@ -1,5 +1,8 @@
 # Changelog
 
+## [v0.0.6](https://github.com/ka2n/terraform-source-hash/compare/v0.0.5...v0.0.6) - 2023-11-29
+- chore/update deps by @ka2n in https://github.com/ka2n/terraform-source-hash/pull/9
+
 ## [v0.0.5](https://github.com/ka2n/terraform-source-hash/compare/v0.0.4...v0.0.5) - 2023-11-06
 - feat: support remote module by @ka2n in https://github.com/ka2n/terraform-source-hash/pull/7
 
